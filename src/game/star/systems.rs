@@ -3,8 +3,8 @@ use bevy::window::PrimaryWindow;
 use rand::prelude::*;
 
 use super::components::*;
-use super::NUMBER_OF_STARS;
 use super::resources::*;
+use super::NUMBER_OF_STARS;
 
 pub fn spawn_stars(
     mut commands: Commands,
@@ -55,3 +55,8 @@ pub fn tick_star_spawn_timer(mut star_spawn_timer: ResMut<StarSpawnTimer>, time:
     star_spawn_timer.timer.tick(time.delta());
 }
 
+pub fn despawn_stars(mut commands: Commands, star_query: Query<Entity, With<Star>>) {
+    for star_entity in star_query.iter() {
+        commands.entity(star_entity).despawn();
+    }
+}
